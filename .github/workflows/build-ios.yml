@@ -12,6 +12,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.14"
+
+      - name: Diagnose Flet CLI
+        run: |
+          echo "===== Python version ====="
+          uv run python --version
+
+          echo "===== Installed Flet packages ====="
+          uv pip show flet
+          uv pip show flet-cli || true
+
+          echo "===== Flet Python package version ====="
+          uv run python -c "import flet; print('Flet:', flet.__version__); print('Location:', flet.__file__)"
+
+          echo "===== Flet JSON version command ====="
+          uv run flet --version --json > flet-output.txt 2> flet-error.txt || true
+
+          echo "--- Standard output ---"
+          cat flet-output.txt
+
+          echo "--- Error output ---"
+          cat flet-error.txt
+
+          echo "===== Flet normal version command ====="
+          uv run flet --version || true
+
       - name: Build iOS Simulator App
         id: build
         uses: flet-dev/flet-build-action@v1
