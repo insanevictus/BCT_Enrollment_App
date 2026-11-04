@@ -1,0 +1,14 @@
+Here's your quick reference for adjusting the layout in the future:
+What you want to change	File and attribute
+Center “Courses Offered”	home.py → width, alignment
+Homepage content width	home.py → homepage container's width=360
+Login screen width	login.py → login_screen container's width=360
+Textbox width	login.py → TextField(width=...)
+Textbox border thickness	login.py → ft.Border.all(2, ...)
+Space between login elements	login.py → ft.Container(height=...) and Column(spacing=8)
+Space between homepage elements	home.py → spacer containers and Column(spacing=0)
+Header logo and text size	components/header.py → image width/height and text size
+Button size and color	components/buttons.py → width, height, bgcolor
+One useful distinction: width=float("inf") fills the available width; alignment=ft.Alignment(0, 0) centers a control within its container; and spacing controls the gaps between children of a Column or Row.
+
+Make these three edits, save both files, and test again in your phone-sized window. Your heading should be centered, and both login fields should span the same available form width.

@@ -1,0 +1,1 @@
+& "C:\Users\insanevictus\AppData\Local\Python\pythoncore-3.14-64\Scripts\flet.exe" run --web "C:\Users\insanevictus\Desktop\School\Elective\Enrollment app\main.py"

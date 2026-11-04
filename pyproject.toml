@@ -1,0 +1,8 @@
+[tool.flet]
+icon = "assets/icon.png"
+icon_background = "#102D50"
+
+[tool.flet.splash]
+image = "assets/splash.png"
+color = "#102D50"
+dark_color = "#102D50"
