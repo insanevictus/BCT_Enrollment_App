@@ -16,6 +16,32 @@ jobs:
         with:
           python-version: "3.14"
 
+      # Run the same Flet CLI diagnostics that preceded the successful
+      # simulator build. This also prepares the project environment.
+      - name: Diagnose and prepare Flet CLI
+        run: |
+          echo "===== Python version ====="
+          uv run python --version
+
+          echo "===== Installed Flet packages ====="
+          uv pip show flet
+          uv pip show flet-cli || true
+
+          echo "===== Flet Python package version ====="
+          uv run python -c "import flet; print('Flet:', flet.__version__); print('Location:', flet.__file__)"
+
+          echo "===== Flet JSON version command ====="
+          uv run flet --version --json > flet-output.txt 2> flet-error.txt || true
+
+          echo "--- Standard output ---"
+          cat flet-output.txt
+
+          echo "--- Error output ---"
+          cat flet-error.txt
+
+          echo "===== Flet normal version command ====="
+          uv run flet --version || true
+
       - name: Build unsigned iOS archive
         id: build
         uses: flet-dev/flet-build-action@v1
@@ -28,8 +54,8 @@ jobs:
       - name: Show generated iOS build files
         run: |
           echo "Build output: ${{ steps.build.outputs.output-path }}"
-          find "${{ steps.build.outputs.output-path }}" -maxdepth 5 \\( -name "*.xcarchive" -o -name "*.ipa" \\) -print
-          echo "The expected unsigned output is an .xcarchive, not an installable .ipa."
+          find "${{ steps.build.outputs.output-path }}" -maxdepth 6 \\( -name "*.xcarchive" -o -name "*.ipa" \\) -print
+          echo "The unsigned device build should produce an Xcode archive, not an installable IPA."
 
       - name: Upload unsigned iOS archive
         uses: actions/upload-artifact@v7
