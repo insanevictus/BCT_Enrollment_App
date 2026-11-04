@@ -1,3 +1,12 @@
+[project]
+name = "bct-enrollment-app"
+version = "1.0.0"
+description = "BCT Enrollment System"
+requires-python = ">=3.14"
+dependencies = [
+    "flet==1.0.4",
+]
+
 [tool.flet]
 icon = "assets/icon.png"
 icon_background = "#102D50"
