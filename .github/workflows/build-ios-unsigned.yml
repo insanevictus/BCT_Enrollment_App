@@ -54,7 +54,8 @@ jobs:
       - name: Show generated iOS build files
         run: |
           echo "Build output: ${{ steps.build.outputs.output-path }}"
-          find "${{ steps.build.outputs.output-path }}" -maxdepth 6 \\( -name "*.xcarchive" -o -name "*.ipa" \\) -print
+          find "${{ steps.build.outputs.output-path }}" -maxdepth 6 -name "*.xcarchive" -print
+          find "${{ steps.build.outputs.output-path }}" -maxdepth 6 -name "*.ipa" -print
           echo "The unsigned device build should produce an Xcode archive, not an installable IPA."
 
       - name: Upload unsigned iOS archive
